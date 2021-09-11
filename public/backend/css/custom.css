@@ -397,4 +397,13 @@ table.dataTable thead .sorting_desc {
     overflow: hidden;
     border-top: 1px solid #d8dbe0;
   }
-
+  /* login page */
+  .login-background{
+    /* background-color: #19353d; */
+    background-color: #162d36;
+  }
+  .login-box-shadow{
+    box-shadow: 0px 0px 44px 5px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 0px 44px 5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 44px 5px rgba(0,0,0,0.75);
+  }

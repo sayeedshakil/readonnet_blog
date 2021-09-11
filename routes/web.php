@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -64,3 +65,10 @@ Route::group(['middleware'=>'auth','prefix'=>'backend', 'as'=>'backend.'], funct
 });
 
 
+// Route::get('/clear', function() {
+
+//     Artisan::call('cache:clear');
+//     Artisan::call('config:cache');
+//     Artisan::call('view:clear');
+//     return "Cleared!";
+//     });
