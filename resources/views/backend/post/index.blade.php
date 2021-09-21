@@ -55,100 +55,204 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @php
+                    TODO
+                    {{-- @if (auth()->user()->has('roles')) --}}
+                    {{-- @if (auth()->user()->has('roles','==', 1)); --}}
+                @if (Auth::user()->roles()->where('name'=== 1))
+admin {{Auth::user()->roles->where('role_id','===',1)}}
+                      {{-- @php
                     $i=1
                     @endphp --}}
                     @foreach($posts as $key => $post)
 
-                        <tr data-entry-id="{{ $post }}">
+                    <tr data-entry-id="{{ $post }}">
+                        <td>
 
-                            <td>
+                        </td>
+                        {{-- <td>
+                            {{ $i ?? '' }}
+                        </td> --}}
+                        <td>
+                            {{ $post->unique_post_id ?? '' }}
+                        </td>
+                        <td>
+                            @if ($post->is_active===0)
+                                <span class="badge badge-warning">{{'Under Review'}}</span>
+                            @elseif ($post->is_active===1)
+                                <span class="badge badge-success">{{'Published'}}</span>
+                            @endif
+                        </td>
+                        <td>
+                            {{ $post->title ?? '' }}
+                        </td>
+                        {{-- <td>
+                            {!! $post->post ?? '' !!}
+                        </td> --}}
+                        {{-- <td>
+                            @if($post->image)
+                                <img src="{{ asset('storage/backend/images/coverImage/' . $post->image) }}" style="max-height: 85px;border-radius:3px; " class="img-fluid" alt="{{$post->title}} @foreach($post->tags as $key)
+                                #{{ $key->name }}@endforeach"
+                                title="{{$post->title}} @foreach($post->tags as $key)
+                                #{{ $key->name }}@endforeach">
+                            @else
+                                <img src="{{ asset('no_image.jpg') }}" style="max-height: 85px;border-radius:3px;" class="img-fluid"
+                                alt="{{$post->title}} @foreach($post->tags as $key)
+                                #{{ $key->name }}@endforeach"
+                                title="{{$post->title}} @foreach($post->tags as $key)
+                                #{{ $key->name }}@endforeach">
+                            @endif
+                        </td> --}}
+                        <td>
+                            <span class="badge badge-info">{{$post->category->name ?? ''}}</span>
+                        </td>
+                        <td>
+                            {{$post->user->name ?? ''}}
+                        </td>
+                        {{-- <td>
+                            @foreach($post->tags as $key)
+                                <span class="badge badge-secondary">{{ $key->name }}</span>
+                            @endforeach
+                        </td> --}}
 
-                            </td>
-                            {{-- <td>
-                                {{ $i ?? '' }}
-                            </td> --}}
-                            <td>
-                                {{ $post->unique_post_id ?? '' }}
-                            </td>
-                            <td>
-                                @if ($post->is_active===0)
-                                    <span class="badge badge-warning">{{'Under Review'}}</span>
-                                @elseif ($post->is_active===1)
-                                    <span class="badge badge-success">{{'Published'}}</span>
-                                @endif
-                            </td>
-                            <td>
-                                {{ $post->title ?? '' }}
-                            </td>
-                            {{-- <td>
-                                {!! $post->post ?? '' !!}
-                            </td> --}}
-                            {{-- <td>
-                                @if($post->image)
-                                    <img src="{{ asset('storage/backend/images/coverImage/' . $post->image) }}" style="max-height: 85px;border-radius:3px; " class="img-fluid" alt="{{$post->title}} @foreach($post->tags as $key)
-                                    #{{ $key->name }}@endforeach"
-                                    title="{{$post->title}} @foreach($post->tags as $key)
-                                    #{{ $key->name }}@endforeach">
-                                @else
-                                    <img src="{{ asset('no_image.jpg') }}" style="max-height: 85px;border-radius:3px;" class="img-fluid"
-                                    alt="{{$post->title}} @foreach($post->tags as $key)
-                                    #{{ $key->name }}@endforeach"
-                                    title="{{$post->title}} @foreach($post->tags as $key)
-                                    #{{ $key->name }}@endforeach">
-                                @endif
-                            </td> --}}
-                            <td>
-                                <span class="badge badge-info">{{$post->category->name ?? ''}}</span>
-                            </td>
-                            <td>
-                                {{$post->user->name ?? ''}}
-                            </td>
-                            {{-- <td>
-                                @foreach($post->tags as $key)
-                                    <span class="badge badge-secondary">{{ $key->name }}</span>
-                                @endforeach
-                            </td> --}}
-                            @can('post_access')
-                            <td>
-                                @can('post_show')
-                                <a class="btn btn-xs btn-primary" href="{{ route('backend.posts.show', $post) }}">
-                                    {{ trans('global.view') }}
-                                </a>
-                                @endcan
 
-                                @if ($post->user->id === Auth::user()->id && $post->is_active===0)
-                                @can('post_edit')
-                                <a class="btn btn-xs btn-info" href="{{ route('backend.posts.edit', $post) }}">
-                                    {{ trans('global.edit') }}
-                                </a>
-                                @endcan
-                                @endif
-
-                                {{-- @if ($post->user->id === Auth::user()->id) --}}
-                                @can('post_delete')
-                                <form action="{{ route('backend.posts.destroy', $post) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                </form>
-                                @endcan
-                                {{-- @endif --}}
-
-                                @can('post_review')
-                                <a class="btn btn-xs btn-secondary" href="{{ route('backend.posts.show', $post) }}">
-                                    {{ trans('global.review') }}
-                                </a>
-                                @endcan
-
-                            </td>
+                        @can('post_access')
+                        <td>
+                            @can('post_show')
+                            <a class="btn btn-xs btn-primary" href="{{ route('backend.posts.show', $post) }}">
+                                {{ trans('global.view') }}
+                            </a>
                             @endcan
 
-                        </tr>
+                            @if ($post->user->id === Auth::user()->id && $post->is_active===0)
+                            @can('post_edit')
+                            <a class="btn btn-xs btn-info" href="{{ route('backend.posts.edit', $post) }}">
+                                {{ trans('global.edit') }}
+                            </a>
+                            @endcan
+                            @endif
+
+                            {{-- @if ($post->user->id === Auth::user()->id) --}}
+                            @can('post_delete')
+                            <form action="{{ route('backend.posts.destroy', $post) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                            </form>
+                            @endcan
+                            {{-- @endif --}}
+
+                            @can('post_review')
+                            <a class="btn btn-xs btn-secondary" href="{{ route('backend.posts.show', $post) }}">
+                                {{ trans('global.review') }}
+                            </a>
+                            @endcan
+
+                        </td>
+                        @endcan
+
+                    </tr>
+                    {{-- @php
+                    $i++
+                  @endphp --}}
+                  @endforeach
+                @else
                         {{-- @php
-                        $i++
-                      @endphp --}}
-                    @endforeach
+                    $i=1
+                    @endphp --}}
+                    @foreach($posts->where('user_id','==',auth()->user()->id) as $key => $post)
+
+                    <tr data-entry-id="{{ $post }}">
+                        <td>
+
+                        </td>
+                        {{-- <td>
+                            {{ $i ?? '' }}
+                        </td> --}}
+                        <td>
+                            {{ $post->unique_post_id ?? '' }}
+                        </td>
+                        <td>
+                            @if ($post->is_active===0)
+                                <span class="badge badge-warning">{{'Under Review'}}</span>
+                            @elseif ($post->is_active===1)
+                                <span class="badge badge-success">{{'Published'}}</span>
+                            @endif
+                        </td>
+                        <td>
+                            {{ $post->title ?? '' }}
+                        </td>
+                        {{-- <td>
+                            {!! $post->post ?? '' !!}
+                        </td> --}}
+                        {{-- <td>
+                            @if($post->image)
+                                <img src="{{ asset('storage/backend/images/coverImage/' . $post->image) }}" style="max-height: 85px;border-radius:3px; " class="img-fluid" alt="{{$post->title}} @foreach($post->tags as $key)
+                                #{{ $key->name }}@endforeach"
+                                title="{{$post->title}} @foreach($post->tags as $key)
+                                #{{ $key->name }}@endforeach">
+                            @else
+                                <img src="{{ asset('no_image.jpg') }}" style="max-height: 85px;border-radius:3px;" class="img-fluid"
+                                alt="{{$post->title}} @foreach($post->tags as $key)
+                                #{{ $key->name }}@endforeach"
+                                title="{{$post->title}} @foreach($post->tags as $key)
+                                #{{ $key->name }}@endforeach">
+                            @endif
+                        </td> --}}
+                        <td>
+                            <span class="badge badge-info">{{$post->category->name ?? ''}}</span>
+                        </td>
+                        <td>
+                            {{$post->user->name ?? ''}}
+                        </td>
+                        {{-- <td>
+                            @foreach($post->tags as $key)
+                                <span class="badge badge-secondary">{{ $key->name }}</span>
+                            @endforeach
+                        </td> --}}
+
+
+                        @can('post_access')
+                        <td>
+                            @can('post_show')
+                            <a class="btn btn-xs btn-primary" href="{{ route('backend.posts.show', $post) }}">
+                                {{ trans('global.view') }}
+                            </a>
+                            @endcan
+
+                            @if ($post->user->id === Auth::user()->id && $post->is_active===0)
+                            @can('post_edit')
+                            <a class="btn btn-xs btn-info" href="{{ route('backend.posts.edit', $post) }}">
+                                {{ trans('global.edit') }}
+                            </a>
+                            @endcan
+                            @endif
+
+                            {{-- @if ($post->user->id === Auth::user()->id) --}}
+                            @can('post_delete')
+                            <form action="{{ route('backend.posts.destroy', $post) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                            </form>
+                            @endcan
+                            {{-- @endif --}}
+
+                            @can('post_review')
+                            <a class="btn btn-xs btn-secondary" href="{{ route('backend.posts.show', $post) }}">
+                                {{ trans('global.review') }}
+                            </a>
+                            @endcan
+
+                        </td>
+                        @endcan
+
+                    </tr>
+                    {{-- @php
+                    $i++
+                  @endphp --}}
+                @endforeach
+                    @endif
+
                 </tbody>
             </table>
         </div>

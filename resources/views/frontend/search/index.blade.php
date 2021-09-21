@@ -2,8 +2,8 @@
 @section('meta_description')Read On Net is a free blog site from Bangladesh where you can read other's thoughts as post plus you can write yours too.@endsection
 @section('meta_keywords')Read,Net,read on internet, read online, write blog, read blog, learn online, learn free from internet , free blog post, blog on bangladesh, blog site of Bangladesh, BD blog site, BD blog, readonnet, write blog  @endsection
 @section('title')Read On Net is a Home for Online readers & writers @endsection
-@section('top-banner')
 
+@section('top-banner')
 <div class="main-banner header-text">
     <div class="container-fluid">
       <div class="owl-banner owl-carousel">
@@ -25,16 +25,10 @@
             @endif
           <div class="item-content">
             <div class="main-content">
-              {{-- <div class="meta-category">
-                <span>{{$post->category->name ?? ''}}</span>
-              </div> --}}
               <a href="{{route('readonnet.posts.show',$post)}}"><h4>{{ $post->title ?? '' }}</h4></a>
               <ul class="post-info">
                 <li><a href="{{route('readonnet.category_posts',$post->category )}}">{{$post->category->name ?? ''}}</a></li>
-                {{-- <li><a href="#">{{$post->user->name ?? ''}}</a></li> --}}
                 <li><a href="#">{{$post->created_at->format('d F Y')}}</a></li>
-
-                {{-- <li><a href="#">12 Comments</a></li> --}}
               </ul>
             </div>
           </div>
@@ -44,7 +38,6 @@
       </div>
     </div>
 </div>
-
 @endsection
 
 @section('content')
@@ -52,14 +45,15 @@
         <div class="container">
 
           <div class="sidebar-heading">
-            <h2>Recent Posts</h2>
+            <h2>Search Results..</h2>
           </div>
           <div class="row">
             <div class="col-lg-8">
               <div class="all-blog-posts">
                 <div class="row">
 
-                @foreach ($posts as $post)
+            @if (count($search_results)>0)
+                @foreach ($search_results as $post)
                 <a href="{{route('readonnet.posts.show',$post)}}">
                   <div class="col-lg-12">
                     <div class="blog-post">
@@ -82,10 +76,8 @@
                         <a href="{{route('readonnet.posts.show',$post)}}"><h4>{{$post->title}}</h4></a>
                         <ul class="post-info">
                           <li><a href="{{route('readonnet.writer_profile',$post->user)}}">{{$post->user->name}}</a></li>
-                          <li><a href="#">{{$post->created_at->format('d F Y')}}</a></li>
-                          {{-- <li><a href="#"></a></li> --}}
+                          <li><a href="#">{{$post->created_at->format('d F Y')}}</a></i>
                         </ul>
-                        {{-- <p>{!!$post->post!!}</p> --}}
                         <div class="post-options">
                           <div class="row">
                             <div class="col-6">
@@ -110,8 +102,16 @@
                   </div>
                 </a>
                 @endforeach
+            @else
+                <div class="col-lg-12">
+                    <div class="blog-post">
 
-
+                    <div class="down-content jumbotron">
+                        <h4 class="text-center">There are no matching results found for your search</h4>
+                    </div>
+                    </div>
+                </div>
+            @endif
 
                   <div class="col-lg-12">
                     <div class="main-button">
@@ -132,17 +132,16 @@
                     <div class="col-lg-12">
                         <form class="card p-2" id="search_form" name="gs" method="GET" action="{{route('readonnet.posts.search')}}">
                             <div class="input-group">
-                              <input type="text" name="search_for" class="form-control " placeholder="type to search..."autocomplete="on">
+                              <input type="text" name="search_for" class="form-control " placeholder="type title to search..."autocomplete="on">
                               <button type="submit" class="btn btn-secondary">Search</button>
                             </div>
                           </form>
                     </div>
 
-
                     <div class="col-lg-12">
                         <div class="sidebar-item recent-posts">
                         <div class="sidebar-heading">
-                            <h2>Most Viewed</h2>
+                            <h2>Related Posts</h2>
                         </div>
 
                         <div class="content">

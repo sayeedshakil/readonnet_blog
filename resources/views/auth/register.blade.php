@@ -7,7 +7,7 @@
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card-group">
-            <div class="card p-4">
+            <div class="card p-4 login-box-shadow">
                 <div class="card-body">
                     @if(\Session::has('message'))
                         <p class="alert alert-info">
@@ -16,8 +16,10 @@
                     @endif
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-                        <h1>{{ env('APP_NAME', 'Read On Net') }}</h1>
-                        <p class="text-muted">Register</p>
+                        <div class="text-center">
+                            <h1 class="text-uppercase font-weight-bold"><span style="color: #f48840">Read</span>  On Net</h1>
+                            <p class="text-muted">Register as a Writer</p>
+                        </div>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -77,13 +79,13 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-6 ">
-                                <button type="submit" class="btn btn-primary px-4">
+                            <div class="col-4 ">
+                                <button type="submit" class="btn btn-primary px-4 ">
                                     {{ __('Register') }}
                                 </button>
                             </div>
-                            <div class="col-6 text-right ">
-                                <a class="btn btn-link px-0  " href="{{ route('login') }}">
+                            <div class="col-8 text-right">
+                                <a class="btn btn-link px-0   text-wrap" href="{{ route('login') }}">
                                     Already Registered? LogIn
                                 </a>
                             </div>

@@ -8,10 +8,8 @@
                     <form method="POST" action="{{ route('password.request') }}">
                         {{ csrf_field() }}
                         <h1>
-                            <div class="login-logo">
-                                <a href="#">
-                                    {{ env('APP_NAME', 'Read On Net') }}
-                                </a>
+                            <div class="login-logo text-center">
+                                <h1 class="text-uppercase font-weight-bold"><span style="color: #f48840;text">Read</span>  On Net</h1>
                             </div>
                         </h1>
                         <p class="text-muted"></p>

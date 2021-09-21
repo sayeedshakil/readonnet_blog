@@ -2,7 +2,7 @@
     <nav class="sidebar-nav">
 
         <ul class="nav">
-            <h4>{{auth()->user()->name}}</h4>
+            {{-- <h4>{{auth()->user()->name}}</h4> --}}
             <li class="nav-item">
                 <a href="{{ route('backend.dashboard') }}" class="nav-link">
                     <i class="nav-icon fas fa-fw fa-tachometer-alt">
@@ -58,7 +58,7 @@
                 <a class="nav-link  nav-dropdown-toggle" href="#">
                     {{-- <i class="fa-fw fas fa-users nav-icon"> --}}
 
-                        <i class="fas fa-bezier-curve nav-icon"></i>
+                        <i class="fas fa-desktop nav-icon"></i>
                     </i>
                     Posts
                 </a>

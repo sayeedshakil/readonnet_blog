@@ -35,8 +35,10 @@ class User extends Authenticatable
         'instagram_link',
         'twitter_link',
         'linkedin_link',
+        'website_link',
         'expertise',
         'interested_in',
+
     ];
 
     public static function boot(){

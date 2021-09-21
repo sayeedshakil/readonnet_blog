@@ -27,7 +27,7 @@
                 </p>
             </div>
 
-            {{-- <div class="form-group {{ $errors->has('slug') ? 'has-error' : '' }}">
+            <div class="form-group {{ $errors->has('slug') ? 'has-error' : '' }}">
                 <label for="slug">{{ trans('cruds.post.fields.slug') }}*</label>
                 <input type="text"  name="slug" id="slug" class="form-control" value="{{ old('slug', isset($user) ? $user->slug : '') }}" >
                 @if($errors->has('slug'))
@@ -38,7 +38,7 @@
                 <p class="helper-block">
                     {{ trans('cruds.user.fields.name_helper') }}
                 </p>
-            </div> --}}
+            </div>
 
             <div class="form-group {{ $errors->has('category') ? 'has-error' : '' }}">
                 <label class="required {{ $errors->has('category') ? 'is-invalid' : '' }}" for="category">{{ trans('cruds.post.fields.category_select') }}*
@@ -129,7 +129,6 @@
                 </p>
             </div>
 
-
             <div>
                 <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
             </div>
@@ -164,7 +163,7 @@
         filebrowserUploadMethod:"form"
     } );
 </script>
-{{-- <script>
+<script>
     $('#title').change(function(e){
         $.get('{{route('backend.post.checkSlug')}}',
         {'title':$(this).val()},
@@ -173,5 +172,5 @@
             }
         );
     });
-</script> --}}
+</script>
 @endsection

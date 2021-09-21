@@ -3,7 +3,7 @@
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card-group">
-            <div class="card p-4">
+            <div class="card p-4 login-box-shadow">
                 <div class="card-body">
 
                     @if(session('status'))
@@ -14,14 +14,14 @@
                     <form method="POST" action="{{ route('password.email') }}">
                         {{ csrf_field() }}
                         <h1>
-                            <div class="login-logo">
-                                <a href="#">
-                                    {{ env('APP_NAME', 'Read On Net') }}
-                                </a>
+                            <div class="login-logo text-center">
+                                {{-- <a href="{{route('home')}}"> --}}
+                                    <h1 class="text-uppercase font-weight-bold"><span style="color: #f48840;text">Read</span>  On Net</h1>
+                                {{-- </a> --}}
                             </div>
 
                         </h1>
-                        <p class="text-muted">{{ trans('global.reset_password') }}</p>
+                        <p class="text-muted text-center">{{ trans('global.reset_password') }}</p>
                         <p class="text-muted"></p>
                         <div>
                             {{ csrf_field() }}

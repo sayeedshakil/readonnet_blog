@@ -3,6 +3,9 @@
 
 namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Post;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,8 +28,10 @@ class HomeController extends Controller
     public function index()
     {
         $notifications = auth()->user()->unreadNotifications;
+        $posts = Post::where('user_id',auth()->user()->id)->get();
+        $categories = Category::count();
 
-        return view('backend.dashboard', compact('notifications'));
+        return view('backend.dashboard', compact('notifications','posts','categories'));
     }
 
     public function markNotification(Request $request)

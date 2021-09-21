@@ -117,6 +117,8 @@ return [
             'category'                 => 'Category',
             'writer'                   => 'Writer',
             'select_writer'                   => 'Select Writer',
+            'meta_description'                   => 'Meta Description',
+            'meta_keywords'                   => 'Meta Keywords',
 
         ],
     ]

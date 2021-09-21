@@ -7,6 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MR7WL6P');</script>
+    <!-- End Google Tag Manager -->
+    <link rel="icon" href="{{ url('frontend/assets/favicon.png') }}">
+
     <title>{{ env('APP_NAME', 'Read On Net') }}</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" />
@@ -27,13 +36,22 @@
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed pace-done sidebar-lg-show">
 
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MR7WL6P"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <header class="app-header navbar">
         <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#">
-            <span class="navbar-brand-full">{{ env('APP_NAME', 'Permissions Manager') }}</span>
-            <span class="navbar-brand-minimized">{{ env('APP_NAME', 'Permissions Manager') }}</span>
+        <a class="navbar-brand" href="{{route('backend.dashboard')}}">
+            <span class="navbar-brand-full text-uppercase font-weight-bold text-dark">
+                <span style="color: #f48840">Read</span>  On Net
+            </span>
+            <span class="navbar-brand-minimized text-uppercase font-weight-bold text-dark">
+                <span style="color: #f48840">Read</span>  On Net
+            </span>
         </a>
         <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
             <span class="navbar-toggler-icon"></span>
@@ -76,11 +94,6 @@
                     <svg class="c-icon mr-2">
                       <use xlink:href="{{ url('backend/icons/sprites/free.svg#cil-settings') }}"></use>
                     </svg> Password</a>
-                    {{-- <a class="dropdown-item" href="{{ route('backend.post.personal_post') }}">
-                    <svg class="c-icon mr-2">
-                      <use xlink:href="{{ url('backend/icons/sprites/free.svg#cil-file') }}"></use>
-                    </svg> Posts<span class="badge badge-primary ml-auto">42</span>
-                    </a> --}}
                     <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                     <svg class="c-icon mr-2">
                     <use xlink:href="{{ url('backend/icons/sprites/free.svg#cil-account-logout') }}"></use>
@@ -122,12 +135,18 @@
 
             </div>
 
+            <footer class="c-footer">
+                <div>All Right Reserved by <a href="{{route('home')}}">Read On Net</a> &copy;2021</div>
+                <div class="ml-auto">Developed by&nbsp;<a target="_blank" href="https://www.facebook.com/sayeed.shakil.1143/">Abu Sayeed Shakil</a></div>
+            </footer>
 
         </main>
+
         <form id="logoutform" action="{{ route('logout') }}" method="POST" style="display: none;">
             {{ csrf_field() }}
         </form>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>

@@ -1,5 +1,9 @@
 @extends('frontend.layouts.masterfrontend')
 
+@section('meta_description')Read On Net is a free blog site from Bangladesh where you can read other's thoughts as post plus you can write yours too.@endsection
+@section('meta_keywords')Read,Net,read on internet, read online, write blog, read blog, learn online, learn free from internet , free blog post, blog on bangladesh, blog site of Bangladesh, BD blog site, BD blog, readonnet, write blog  @endsection
+@section('title')All Posts are Published for you to Read Online for free. @endsection
+
 @section('content')
         <!-- Page Content -->
     <!-- Banner Starts Here -->
@@ -10,7 +14,7 @@
               <div class="col-lg-12">
                 <div class="text-content">
                   <h4><a href="{{route('readonnet.posts.index')}}"> All Posts</a></h4>
-                  <h2>Find your interested category and continue learning for free</h2>
+                  <h2>All posts from all category</h2>
                 </div>
               </div>
             </div>
@@ -31,12 +35,12 @@
                     <div class="blog-post">
                       <div class="blog-thumb">
                         @if($post->image)
-                                <img src="{{ asset('storage/backend/images/coverImage/' . $post->image) }}" style="max-height: 196px;border-radius:3px; " class="img-fluid" alt="{{$post->title}} @foreach($post->tags as $key)
+                                <img src="{{ asset('storage/backend/images/coverImage/' . $post->image) }}" style="height: 196px;border-radius:3px; " class="img-fluid" alt="{{$post->title}} @foreach($post->tags as $key)
                                 #{{ $key->name }}@endforeach"
                                 title="{{$post->title}} @foreach($post->tags as $key)
                                 #{{ $key->name }}@endforeach">
                             @else
-                                <img src="{{ asset('backend/images/default/blog_cover/joanna-kosinska-LAaSoL0LrYs-unsplash.jpg') }}"  style="max-height: 196px;border-radius:3px; " class="img-fluid" alt="{{$post->title}} @foreach($post->tags as $key)
+                                <img src="{{ asset('backend/images/default/blog_cover/joanna-kosinska-LAaSoL0LrYs-unsplash.jpg') }}"  style="height: 196px;border-radius:3px; " class="img-fluid" alt="{{$post->title}} @foreach($post->tags as $key)
                                 #{{ $key->name }}@endforeach"
                                 title="{{$post->title}} @foreach($post->tags as $key)
                                 #{{ $key->name }}@endforeach">
@@ -89,14 +93,14 @@
             <div class="col-lg-4">
                 <div class="sidebar">
                     <div class="row">
-                    <div class="col-lg-12">
-                        <div class="sidebar-item search">
-                        <form id="search_form" name="gs" method="GET" action="#">
-                            <input type="text" name="q" class="searchText" placeholder="type to search..." autocomplete="on">
-
-                        </form>
+                        <div class="col-lg-12">
+                            <form class="card p-2" id="search_form" name="gs" method="GET" action="{{route('readonnet.posts.search')}}">
+                                <div class="input-group">
+                                  <input type="text" name="search_for" class="form-control " placeholder="type title to search..."autocomplete="on">
+                                  <button type="submit" class="btn btn-secondary">Search</button>
+                                </div>
+                              </form>
                         </div>
-                    </div>
                     <div class="col-lg-12">
                         <div class="sidebar-item recent-posts">
                         <div class="sidebar-heading">
@@ -111,12 +115,12 @@
                                 <a href="{{route('readonnet.posts.show',$post)}}">
                                     <div class="media">
                                     @if($post->image)
-                                            <img src="{{ asset('storage/backend/images/coverImage/' . $post->image) }}" width="100" height="80" alt="{{$post->title}} @foreach($post->tags as $key)
+                                            <img src="{{ asset('storage/backend/images/coverImage/' . $post->image) }}" width="100" height="70" alt="{{$post->title}} @foreach($post->tags as $key)
                                             #{{ $key->name }}@endforeach"
                                             title="{{$post->title}} @foreach($post->tags as $key)
                                             #{{ $key->name }}@endforeach">
                                         @else
-                                            <img src="{{ asset('backend/images/default/blog_cover/joanna-kosinska-LAaSoL0LrYs-unsplash.jpg') }}"  width="100" height="80" alt="{{$post->title}} @foreach($post->tags as $key)
+                                            <img src="{{ asset('backend/images/default/blog_cover/joanna-kosinska-LAaSoL0LrYs-unsplash.jpg') }}"  width="100" height="70" alt="{{$post->title}} @foreach($post->tags as $key)
                                             #{{ $key->name }}@endforeach"
                                             title="{{$post->title}} @foreach($post->tags as $key)
                                             #{{ $key->name }}@endforeach">

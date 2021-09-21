@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ReviewPostRequest;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Category;
@@ -29,13 +30,6 @@ class PostController extends Controller
     {
         abort_if(Gate::denies('post_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $posts = Post::with('category', 'user')->get();
-        return view('backend.post.index', compact('posts'));
-    }
-    //TODO:
-    public function personal_post()
-    {
-        abort_if(Gate::denies('post_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $posts = Post::where('')->with('category', 'user')->get();
         return view('backend.post.index', compact('posts'));
     }
 
@@ -76,7 +70,9 @@ class PostController extends Controller
                 'image' => $filename ?? null,
                 'post' => $request->post,
                 'category_id' => $request->category,
-                'user_id'=>$request->user
+                'user_id'=>$request->user,
+                'meta_keywords'     =>$request->meta_keywords,
+                'meta_description'  =>$request->meta_description
             ]);
         } else {
 
@@ -84,8 +80,10 @@ class PostController extends Controller
                 'title' => $request->title,
                 'image' => $filename ?? null,
                 'post' => $request->post,
-                'category_id' => $request->category
-                // 'slug' => SlugService::createSlug(Post::class,'slug', $request->title)
+                'category_id' => $request->category,
+                'meta_keywords'     =>$request->meta_keywords,
+                'meta_description'  =>$request->meta_description,
+                'slug' => SlugService::createSlug(Post::class,'slug', $request->title)
             ]);
         }
 
@@ -161,11 +159,20 @@ class PostController extends Controller
             abort(Response::HTTP_FORBIDDEN,'You Do not own this Post OR Post has been Published!');
         }
     }
-    public function reviewPost(Request $request,Post $post)
-    {
-        abort_if(Gate::denies('post_review'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $post->update(['is_active'=>$request->is_active]);
+
+    public function reviewPost(ReviewPostRequest $request, Post $post)
+    {
+//TODO
+        abort_if(Gate::denies('post_review'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        // $request->all();
+        //dd($request);
+        $post->update([
+            'is_active'         =>$request->is_active,
+            'meta_keywords'     =>$request->meta_keywords,
+            'meta_description'  =>$request->meta_description,
+            'slug'  =>$request->slug
+        ]);
         return redirect()->route('backend.posts.index');
 
     }
@@ -232,10 +239,10 @@ class PostController extends Controller
 
     }
 
-    // public function checkSlug(Request $request)
-    // {
-    //     $slug = SlugService::createSlug(Post::class,'slug', $request->title);
-    //     return response()->json(['slug'=>$slug]);
-    // }
+    public function checkSlug(Request $request)
+    {
+        $slug = SlugService::createSlug(Post::class,'slug', $request->title);
+        return response()->json(['slug'=>$slug]);
+    }
 
 }

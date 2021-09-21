@@ -74,7 +74,7 @@ jQuery( document ).ready(function( $ ) {
                       margin: 0
                     },
                     460: {
-                        items: 2,
+                        items: 1,
                         margin: 0
                     },
                     576: {

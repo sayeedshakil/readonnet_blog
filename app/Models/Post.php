@@ -11,7 +11,7 @@ class Post extends Model
 {
     use HasFactory,SoftDeletes,Sluggable;
 
-    protected $fillable = ['unique_post_id','title','image','post','category_id','user_id','is_active','slug'];
+    protected $fillable = ['unique_post_id','title','image','post','category_id','user_id','is_active','slug','meta_keywords','meta_description'];
 
     public static function boot(){
         parent::boot();

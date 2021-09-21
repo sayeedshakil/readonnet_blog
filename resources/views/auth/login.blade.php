@@ -1,9 +1,9 @@
 @extends('backend.layouts.app')
 @section('content')
-<div class="row justify-content-center">
+<div class="row justify-content-center " >
     <div class="col-md-8">
-        <div class="card-group">
-            <div class="card p-4">
+        <div class="card-group ">
+            <div class="card p-4 login-box-shadow">
                 <div class="card-body">
                     @if(\Session::has('message'))
                         <p class="alert alert-info">
@@ -12,8 +12,11 @@
                     @endif
                     <form method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
-                        <h1>{{ env('APP_NAME', 'Permissions Manager') }}</h1>
-                        <p class="text-muted">Login</p>
+                        <div class="text-center login-logo">
+                            <h1 class="text-uppercase font-weight-bold"><span style="color: #f48840">Read</span>  On Net</h1>
+                            {{-- <h1 class="text-uppercase font-weight-bold"> <span style="color: #f48840">Read</span>  On Net</h1> --}}
+                            <p class="text-muted">Login to your Account</p>
+                        </div>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -51,16 +54,16 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <button type="submit" class="btn btn-primary px-4">
                                     Login
                                 </button>
                             </div>
-                            <div class="col-6 text-right">
-                                <a class="btn btn-link px-0" href="{{ route('register') }}">
-                                    Dont have writer's account? Register Now
-                                </a>
-                                <a class="btn btn-link px-0" href="{{ route('password.request') }}">
+                            <div class="col-8 text-center " >
+                                <a class="btn btn-link px-0 text-wrap" href="{{ route('register') }}">
+                                    Don't have an account?  Register Now
+                                </a><br>
+                                <a class="btn btn-link px-0 text-wrap" href="{{ route('password.request') }}">
                                     Forgot your password?
                                 </a>
 

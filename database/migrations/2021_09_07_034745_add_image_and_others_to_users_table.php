@@ -24,6 +24,8 @@ class AddImageAndOthersToUsersTable extends Migration
             $table->string('linkedin_link')->nullable();
             $table->string('youtube_link')->nullable();
             $table->string('website_link')->nullable();
+            $table->string('expertise')->nullable();
+            $table->string('interested_in')->nullable();
         });
     }
 

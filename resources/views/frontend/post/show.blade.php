@@ -1,5 +1,29 @@
 @extends('frontend.layouts.masterfrontend')
-
+@section('meta_description'){{$post->meta_description}}@endsection
+@section('meta_keywords'){{$post->meta_keywords}}@endsection
+@section('title'){{$post->title}} by {{$post->user->name}}@endsection
+@section('social-media-links')
+    {{-- facebook open graph  --}}
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.readonnet.com/posts/{{$post->slug}}">
+    <meta property="og:title" content="{{$post->title}}">
+    <meta property="og:description" content="{{$post->meta_description}}">
+    <meta property="og:image" content="@if($post->image)
+    {{ asset('storage/backend/images/coverImage/'. $post->image) }}
+    @else
+    {{ asset('backend/images/default/blog_cover/joanna-kosinska-LAaSoL0LrYs-unsplash.jpg') }}
+    @endif">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.readonnet.com/posts/{{$post->slug}}">
+    <meta property="twitter:title" content="{{$post->title}}">
+    <meta property="twitter:description" content="{{$post->meta_description}}">
+    <meta property="twitter:image" content="@if($post->image)
+    {{ asset('storage/backend/images/coverImage/' . $post->image) }}
+    @else
+    {{ asset('backend/images/default/blog_cover/joanna-kosinska-LAaSoL0LrYs-unsplash.jpg') }}
+    @endif">
+@endsection
 @section('content')
         <!-- Page Content -->
     <!-- Banner Starts Here -->
@@ -35,18 +59,16 @@
                         @if($post->image)
                                 <img src="{{ asset('storage/backend/images/coverImage/' . $post->image) }}" style="max-height: 300px;border-radius:3px; " class="img-fluid" alt="{{$post->title}} @foreach($post->tags as $key)
                                 #{{ $key->name }}@endforeach"
-                                title="{{$post->title}} @foreach($post->tags as $key)
-                                #{{ $key->name }}@endforeach">
+                                title="{{$post->title}}">
                             @else
                                 <img src="{{ asset('backend/images/default/blog_cover/joanna-kosinska-LAaSoL0LrYs-unsplash.jpg') }}"  style="max-height: 300px;border-radius:3px; " class="img-fluid" alt="{{$post->title}} @foreach($post->tags as $key)
                                 #{{ $key->name }}@endforeach"
-                                title="{{$post->title}} @foreach($post->tags as $key)
-                                #{{ $key->name }}@endforeach">
+                                title="{{$post->title}}">
 
                         @endif
                       </div>
                       <div class="down-content">
-                        <a href="#"><h4>{{$post->title}}</h4></a>
+                        <a href="{{route('readonnet.posts.show',$post)}}"><h4>{{$post->title}}</h4></a>
                         <ul class="post-info">
                           <li><a href="{{route('readonnet.writer_profile',$post->user)}}">{{$post->user->name}}</a></li>
                           <li><a href="#">{{$post->created_at->format('d F Y')}}</a></li>
@@ -169,13 +191,14 @@
             <div class="col-lg-4">
                 <div class="sidebar">
                     <div class="row">
-                    <div class="col-lg-12">
-                        <div class="sidebar-item search">
-                        <form id="search_form" name="gs" method="GET" action="#">
-                            <input type="text" name="q" class="searchText" placeholder="type to search..." autocomplete="on">
-                        </form>
+                        <div class="col-lg-12">
+                            <form class="card p-2" id="search_form" name="gs" method="GET" action="{{route('readonnet.posts.search')}}">
+                                <div class="input-group">
+                                  <input type="text" name="search_for" class="form-control " placeholder="type title to search..."autocomplete="on">
+                                  <button type="submit" class="btn btn-secondary">Search</button>
+                                </div>
+                              </form>
                         </div>
-                    </div>
                     <div class="col-lg-12">
                         <div class="sidebar-item recent-posts">
                         <div class="sidebar-heading">
@@ -190,12 +213,12 @@
                                 <a href="{{route('readonnet.posts.show',$post)}}">
                                     <div class="media">
                                     @if($post->image)
-                                            <img src="{{ asset('storage/backend/images/coverImage/' . $post->image) }}" width="100" height="80" alt="{{$post->title}} @foreach($post->tags as $key)
+                                            <img src="{{ asset('storage/backend/images/coverImage/' . $post->image) }}" width="100" height="70" alt="{{$post->title}} @foreach($post->tags as $key)
                                             #{{ $key->name }}@endforeach"
                                             title="{{$post->title}} @foreach($post->tags as $key)
                                             #{{ $key->name }}@endforeach">
                                         @else
-                                            <img src="{{ asset('backend/images/default/blog_cover/joanna-kosinska-LAaSoL0LrYs-unsplash.jpg') }}"   width="100" height="80" alt="{{$post->title}} @foreach($post->tags as $key)
+                                            <img src="{{ asset('backend/images/default/blog_cover/joanna-kosinska-LAaSoL0LrYs-unsplash.jpg') }}"   width="100" height="70" alt="{{$post->title}} @foreach($post->tags as $key)
                                             #{{ $key->name }}@endforeach"
                                             title="{{$post->title}} @foreach($post->tags as $key)
                                             #{{ $key->name }}@endforeach">
