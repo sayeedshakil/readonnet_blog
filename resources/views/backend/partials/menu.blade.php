@@ -53,6 +53,48 @@
                 </li>
             @endcan
 
+            @can('allpost_access')
+            <li class="nav-item">
+                <a href="{{ route('backend.allPosts.index') }}" class="nav-link">
+                    <i class="fas fa-desktop nav-icon"></i>
+                    </i>
+                    All Posts
+                </a>
+            </li>
+            @endcan
+
+            {{-- @can('allpost_access')
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link  nav-dropdown-toggle" href="#">
+
+                        <i class="fas fa-desktop nav-icon"></i>
+                    </i>
+                    All Posts
+                </a>
+                <ul class="nav-dropdown-items">
+                    @can('post_access')
+                    <li class="nav-item">
+                        <a href="{{route('backend.posts.allPosts')}}" class="nav-link {{ request()->is('backend.posts') || request()->is('backend.posts/') ? 'active' : '' }}">
+                            <i class="fas fa-stream nav-icon"></i>
+                            View All
+                        </a>
+                    </li>
+                    @endcan
+                    @can('post_create')
+                    <li class="nav-item">
+                        <a href="{{route('backend.posts.create')}}" class="nav-link {{ request()->is('backend.posts/create') || request()->is('backend.posts/create/*') ? 'active' : '' }}">
+
+                            <i class="fas fa-plus-circle nav-icon"></i>
+
+                            </i>
+                            Add New
+                        </a>
+                    </li>
+                    @endcan
+                </ul>
+            </li>
+            @endcan --}}
+
             @can('post_access')
             <li class="nav-item nav-dropdown">
                 <a class="nav-link  nav-dropdown-toggle" href="#">
@@ -60,7 +102,7 @@
 
                         <i class="fas fa-desktop nav-icon"></i>
                     </i>
-                    Posts
+                    Your Posts
                 </a>
                 <ul class="nav-dropdown-items">
                     @can('post_access')

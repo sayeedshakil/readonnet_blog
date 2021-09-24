@@ -106,8 +106,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
 
+        if ($post->user->id === Auth::user()->id  && $post->is_active===0) {
         abort_if(Gate::denies('post_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        if ($post->user->id === Auth::user()->id && $post->is_active===0) {
          $categories = Category::all();
         $tags = $post->tags->implode('name', ', ');
 
@@ -163,7 +163,7 @@ class PostController extends Controller
 
     public function reviewPost(ReviewPostRequest $request, Post $post)
     {
-//TODO
+
         abort_if(Gate::denies('post_review'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         // $request->all();
         //dd($request);
@@ -173,7 +173,7 @@ class PostController extends Controller
             'meta_description'  =>$request->meta_description,
             'slug'  =>$request->slug
         ]);
-        return redirect()->route('backend.posts.index');
+            return redirect()->route('backend.posts.index');
 
     }
 

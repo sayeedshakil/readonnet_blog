@@ -60,7 +60,7 @@
                                 {{ $user->email ?? '' }}
                             </td>
                             <td>
-                                @foreach($user->roles()->pluck('name') as $role)
+                                @foreach($user->roles->pluck('name') as $role)
                                     <span class="badge badge-info">{{ $role }}</span>
                                 @endforeach
                             </td>

@@ -28,7 +28,7 @@
             </div>
 
             <div class="form-group {{ $errors->has('slug') ? 'has-error' : '' }}">
-                <label for="slug">{{ trans('cruds.post.fields.slug') }}* <span class="help-block text-info">Slug should be generated autometically from your title, if not try like(this-is-a-test-slug)</span></label>
+                <label for="slug">{{ trans('cruds.post.fields.slug') }}*</label>
                 <input type="text"  name="slug" id="slug" class="form-control" value="{{ old('slug', isset($user) ? $user->slug : '') }}" >
                 @if($errors->has('slug'))
                     <em class="invalid-feedback">

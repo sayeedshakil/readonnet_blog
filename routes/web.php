@@ -54,6 +54,9 @@ Route::group(['middleware'=>'auth','prefix'=>'backend', 'as'=>'backend.'], funct
     Route::delete('posts/destroy', [App\Http\Controllers\backend\PostController::class, 'massDestroy'])->name('post.mass_destroy');
     Route::get('posts/check_slug',[App\Http\Controllers\backend\PostController::class, 'checkSlug'])->name('post.checkSlug');
     Route::resource('posts', App\Http\Controllers\backend\PostController::class);
+    //allPosts
+    Route::put('allPosts/review/{allPost}', [App\Http\Controllers\backend\AllPostController::class, 'reviewPost'])->name('allPosts.review');
+    Route::resource('allPosts', App\Http\Controllers\backend\AllPostController::class);
     // Change Password Routes...
     Route::get('change_password', [App\Http\Controllers\Auth\ChangePasswordController::class, 'showChangePasswordForm'])->name('auth.change_password');
     Route::patch('change_password', [App\Http\Controllers\Auth\ChangePasswordController::class,'changePassword'])->name('auth.change_password');

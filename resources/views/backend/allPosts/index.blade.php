@@ -11,7 +11,7 @@
 @endcan
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.post.title_singular') }} {{ trans('global.list') }} of {{auth()->user()->name}}
+        {{ trans('cruds.post.title_singular') }} {{ trans('global.list') }} of all writers from Read On Net.
     </div>
 
     <div class="card-body">
@@ -59,7 +59,7 @@
                     @php
                     $i=1
                     @endphp
-                    @foreach($posts->where('user_id','==',auth()->user()->id) as $key => $post)
+                    @foreach($posts as $key => $post)
 
                     <tr data-entry-id="{{ $post }}">
                         <td>
@@ -114,14 +114,14 @@
                         @can('post_access')
                         <td>
                             @can('post_show')
-                            <a class="btn btn-xs btn-primary" href="{{ route('backend.posts.show', $post) }}">
+                            <a class="btn btn-xs btn-primary" href="{{ route('backend.allPosts.show', $post) }}">
                                 {{ trans('global.view') }}
                             </a>
                             @endcan
 
-                            @if ($post->user->id === Auth::user()->id && $post->is_active===0)
-                            @can('post_edit')
-                            <a class="btn btn-xs btn-info" href="{{ route('backend.posts.edit', $post) }}">
+                            @if ($post->is_active===0)
+                            @can('allpost_edit')
+                            <a class="btn btn-xs btn-info" href="{{ route('backend.allPosts.edit', $post) }}">
                                 {{ trans('global.edit') }}
                             </a>
                             @endcan
@@ -129,7 +129,7 @@
 
                             {{-- @if ($post->user->id === Auth::user()->id) --}}
                             @can('post_delete')
-                            <form action="{{ route('backend.posts.destroy', $post) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                            <form action="{{ route('backend.allPosts.destroy', $post) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -138,7 +138,7 @@
                             {{-- @endif --}}
 
                             @can('post_review')
-                            <a class="btn btn-xs btn-secondary" href="{{ route('backend.posts.show', $post) }}">
+                            <a class="btn btn-xs btn-secondary" href="{{ route('backend.allPosts.show', $post) }}">
                                 {{ trans('global.review') }}
                             </a>
                             @endcan
@@ -149,8 +149,9 @@
                     </tr>
                     @php
                     $i++
-                     @endphp
-                    @endforeach
+                  @endphp
+                @endforeach
+
 
                 </tbody>
             </table>
@@ -197,7 +198,7 @@
 
   $.extend(true, $.fn.dataTable.defaults, {
     order: [[ 1, 'desc' ]],
-    pageLength: 10,
+    pageLength: 50,
   });
   $('.datatable-User:not(.ajaxTable)').DataTable({ buttons: dtButtons })
     $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){

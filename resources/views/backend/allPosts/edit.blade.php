@@ -7,12 +7,12 @@
     </div>
 
     <div class="card-body">
-        <form action="{{ route('backend.posts.update',$post) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('backend.allPosts.update',$allPost) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
                 <label for="title">{{ trans('cruds.post.fields.title') }}*</label>
-                <input type="text" id="title" name="title" class="form-control" value="{{ old('title', isset($post) ? $post->title : '') }}" required>
+                <input type="text" id="title" name="title" class="form-control" value="{{ old('title', isset($allPost) ? $allPost->title : '') }}" required>
                 @if($errors->has('title'))
                     <em class="invalid-feedback">
                         {{ $errors->first('title') }}
@@ -24,9 +24,9 @@
             </div>
 
             {{-- <div class="form-group {{ $errors->has('slug') ? 'has-error' : '' }}">
-                <label for="slug">{{ trans('cruds.post.fields.slug') }}* <span class="help-block text-info">Slug should be generated autometically, if not try like(this-is-a-test-slug)</span></label>
+                <label for="slug">{{ trans('cruds.post.fields.slug') }}* <span class="help-block text-info">Slug should be generated autometically, if not try like (this-is-a-test-slug)</span></label>
                 <input class="form-control {{ $errors->has('slug') ? 'is-invalid' : '' }}" type="text"
-                name="slug" id="slug" value="{{ old('slug', isset($post) ? $post->slug : '') }}">
+                name="slug" id="slug" value="{{ old('slug', isset($allPost) ? $allPost->slug : '') }}">
                 @if($errors->has('slug'))
                     <em class="invalid-feedback">
                         {{ $errors->first('slug') }}
@@ -44,7 +44,8 @@
                     <option value="#">--- SELECT CATEGORY ---</option>
                         @foreach($categories as $category)
                         <option value="{{ $category->id }}"
-                            @if ($category->id == $post->category->id)
+                            {{-- @if (in_array($category->id, $allPost->category->pluck('id')->toArray())) selected @endif --}}
+                            @if ($category->id == $allPost->category->id)
                             selected
                             @endif
                             >{{ $category->name }}
@@ -82,8 +83,8 @@
                 border-color: rgba(255, 255, 255, 0.08);border-radius:6px; padding: 1.5rem;">
 
                 <div>
-                    @if($post->image)
-                        <img src="{{asset('storage/backend/images/coverImage/' . $post->image)}}" onclick="triggerClick()" style="max-height:180px;border-radius: 3px;" id="previewImage" alt="click here to add an image" title="click here to add your image">
+                    @if($allPost->image)
+                        <img src="{{asset('storage/backend/images/coverImage/' . $allPost->image)}}" onclick="triggerClick()" style="max-height:180px;border-radius: 3px;" id="previewImage" alt="click here to add an image" title="click here to add your image">
                         <input type="file" name="image" id="profileImage" style="display: none;"
                             onchange="preview(this)" class="@error('image') is-invalid @enderror" >
                         @error('image')<div class="alert alert-danger">{{ $message }}</div>
@@ -113,7 +114,7 @@
             <div class="form-group {{ $errors->has('post') ? 'has-error' : '' }}">
                 <label for="post">{{ trans('cruds.post.fields.post') }}*</label>
                 <textarea class="form-control {{ $errors->has('post') ? 'is-invalid' : '' }}" name="post"
-                    id="post_editor">{{ old('post', $post->post) }}</textarea>
+                    id="post_editor">{{ old('post', $allPost->post) }}</textarea>
                 @if($errors->has('post'))
                     <em class="invalid-feedback">
                         {{ $errors->first('post') }}

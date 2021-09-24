@@ -15,7 +15,7 @@
                             {{ trans('cruds.post.fields.id') }}
                         </th>
                         <td>
-                            {{ $post->unique_post_id }}
+                            {{ $allPost->unique_post_id }}
                         </td>
                     </tr>
                     <tr>
@@ -23,7 +23,7 @@
                             {{ trans('cruds.post.fields.title') }}
                         </th>
                         <td>
-                            {{ $post->title }}
+                            {{ $allPost->title }}
                         </td>
                     </tr>
                     <tr>
@@ -31,7 +31,7 @@
                             {{ trans('cruds.post.fields.category') }}
                         </th>
                         <td>
-                            <span class="label label-info label-many badge badge-info">{{ $post->category->name }}</span>
+                            <span class="label label-info label-many badge badge-info">{{ $allPost->category->name }}</span>
                         </td>
                     </tr>
                     <tr>
@@ -39,7 +39,7 @@
                             {{ trans('cruds.post.fields.writer') }}
                         </th>
                         <td>
-                            {{ $post->user->name }}
+                            {{ $allPost->user->name }}
 
                         </td>
                     </tr>
@@ -48,7 +48,7 @@
                             {{ trans('cruds.post.fields.tags') }}
                         </th>
                         <td>
-                            @foreach($post->tags()->pluck('name') as $tag)
+                            @foreach($allPost->tags()->pluck('name') as $tag)
                                 <span class="label label-info label-many badge badge-secondary">{{ $tag }}</span>
                             @endforeach
                         </td>
@@ -59,7 +59,7 @@
                             {{ trans('cruds.post.fields.post') }}
                         </th>
                         <td>
-                            {!!$post->post!!}
+                            {!!$allPost->post!!}
                         </td>
                     </tr>
 
@@ -68,16 +68,16 @@
                             {{ trans('cruds.post.fields.cover_image') }}
                         </th>
                         <td>
-                            @if($post->image)
-                                <img src="{{ asset('storage/backend/images/coverImage/' . $post->image) }}" style="max-height: 200px;border-radius:3px; " class="img-fluid" alt="{{$post->title}} @foreach($post->tags as $key)
+                            @if($allPost->image)
+                                <img src="{{ asset('storage/backend/images/coverImage/' . $allPost->image) }}" style="max-height: 200px;border-radius:3px; " class="img-fluid" alt="{{$allPost->title}} @foreach($allPost->tags as $key)
                                 #{{ $key->name }}@endforeach"
-                                title="{{$post->title}} @foreach($post->tags as $key)
+                                title="{{$allPost->title}} @foreach($allPost->tags as $key)
                                 #{{ $key->name }}@endforeach">
                             @else
                                 <img src="{{ asset('backend/images/default/blog_cover/joanna-kosinska-LAaSoL0LrYs-unsplash.jpg') }}" style="max-height: 200px;border-radius:3px;" class="img-fluid"
-                                alt="{{$post->title}} @foreach($post->tags as $key)
+                                alt="{{$allPost->title}} @foreach($allPost->tags as $key)
                                 #{{ $key->name }}@endforeach"
-                                title="{{$post->title}} @foreach($post->tags as $key)
+                                title="{{$allPost->title}} @foreach($allPost->tags as $key)
                                 #{{ $key->name }}@endforeach">
                             @endif
                         </td>
@@ -90,14 +90,14 @@
             <div class="jumbotron">
                 <h4 class="text-center font-weight-bold">Admin Review Section</h4>
                 <p  class="text-center ">(Please fill all these fields carefully as they are important to rank your post in search engine results)</p>
-                <form action="{{ route('backend.post.review',$post) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('backend.allPosts.review',$allPost) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    @method('PUT') 
+                    @method('PUT')
 
                     <div class="form-group {{ $errors->has('slug') ? 'has-error' : '' }}">
                         <label for="slug">{{ trans('cruds.post.fields.slug') }}* <span class="help-block text-info">Slug is basically same as title but must be look like:- (this-is-a-english-slug) or (এটি-একটি-বাংলা-স্লাগ)</span></label>
                         <input class="form-control {{ $errors->has('slug') ? 'is-invalid' : '' }}" type="text"
-                        name="slug" id="slug" value="{{ old('slug', isset($post) ? $post->slug : '') }}">
+                        name="slug" id="slug" value="{{ old('slug', isset($allPost) ? $allPost->slug : '') }}">
                         @if($errors->has('slug'))
                             <em class="invalid-feedback">
                                 {{ $errors->first('slug') }}
@@ -111,7 +111,7 @@
                     <div class="form-group {{ $errors->has('meta_keywords') ? 'has-error' : '' }}">
                         <label for="meta_keywords">{{ trans('cruds.post.fields.meta_keywords') }}* <span class="help-block text-info">Meta Keywords are very importent for SEO. So please choose at least 2-3 keywords that matches your post</span></label>
                         <input class="form-control {{ $errors->has('meta_keywords') ? 'is-invalid' : '' }}" type="text"
-                        name="meta_keywords" id="meta_keywords" value="{{ old('meta_keywords', isset($post) ? $post->meta_keywords : '') }}">
+                        name="meta_keywords" id="meta_keywords" value="{{ old('meta_keywords', isset($allPost) ? $allPost->meta_keywords : '') }}">
                         @if($errors->has('meta_keywords'))
                             <em class="invalid-feedback">
                                 {{ $errors->first('meta_keywords') }}
@@ -124,7 +124,7 @@
 
                     <div class="form-group {{ $errors->has('meta_description') ? 'has-error' : '' }}">
                         <label for="meta_description">{{ trans('cruds.post.fields.meta_description') }}* <span class="help-block text-info">Meta Description is importent for SEO. Write at least 1 or 2 line short description with your main keywords within it.</span></label>
-                        <input type="text" id="meta_description" name="meta_description" class="form-control" value="{{ old('meta_description', isset($post) ? $post->meta_description : '') }}">
+                        <input type="text" id="meta_description" name="meta_description" class="form-control" value="{{ old('meta_description', isset($allPost) ? $allPost->meta_description : '') }}">
                         @if($errors->has('meta_description'))
                             <em class="invalid-feedback">
                                 {{ $errors->first('meta_description') }}
@@ -141,8 +141,8 @@
                         </label>
                         <select name="is_active" id="is_active" class="form-control" required>
 
-                                <option value="{{ 0 }}" @if (0 == $post->is_active) selected @endif>{{ 'OFF' }}</option>
-                                <option value="{{ 1 }}" @if (1 == $post->is_active) selected @endif>{{ 'ON' }}</option>
+                                <option value="{{ 0 }}" @if ($allPost->is_active === 0) selected @endif>{{ 'OFF' }}</option>
+                                <option value="{{ 1 }}" @if ($allPost->is_active === 1) selected @endif>{{ 'ON' }}</option>
 
                         </select>
                             @if($errors->has('is_active'))

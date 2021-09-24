@@ -165,7 +165,15 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'id'    => '38',
-                'name' => '	profile_delete',
+                'name' => 'profile_delete',
+            ],
+            [
+                'id'    => '39',
+                'name' => 'allpost_access',
+            ],
+            [
+                'id'    => '40',
+                'name' => 'allpost_edit',
             ],
 
         ];
